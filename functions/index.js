@@ -1,7 +1,16 @@
-
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp();
+const userRouter=require('./express/user-router')
+const express=require('express')
+
+/*
+Initializations
+*/
+const app=express()
+
+app.use(userRouter)
+
+//admin.initializeApp();
 
 const padToTwo = function(num) {
   if (num<=9) return '0' + num;
@@ -46,3 +55,5 @@ const updateNextMeasure = function() {
   .onDelete((snapshot, context) => {
     return updateNextMeasure();
   });
+
+  exports.users=functions.https.onRequest(app)
