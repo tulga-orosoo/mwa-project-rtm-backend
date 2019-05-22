@@ -20,7 +20,7 @@
     "eslint-plugin-promise": "^4.0.1"
   },
   "engines": {
-    "node": "8" 
+    "node": "8"
   },
   "private": true
 }
