@@ -9,8 +9,9 @@ Initializations
 */
 const app = express()
 app.use(cors())
-app.disable('x-powered-by')
 app.use(userRouter)
+
+app.disable('x-powered-by')
 
 if (!admin.apps.length) {
   admin.initializeApp({});
@@ -47,10 +48,22 @@ const updateNextMeasure = function () {
     });
 }
 
+const incrementMeasureCounter = function(increment) {
+  const countRef = admin.database().ref('/tank_measures/measure_count');
+  if (isNaN(Number(increment))) {
+    return null;
+  }
+
+  return countRef.transaction((current) => {
+    return (current || 0) + increment;
+  });
+}
+
 // Listens for new measures added to /tank_measures/measures/ and update
 // next_measure date
 exports.updateNextMeasureOnCreate = functions.database.ref('/tank_measures/measures/{pushId}')
   .onCreate((snapshot, context) => {
+    incrementMeasureCounter(1);
     return updateNextMeasure();
   });
 
@@ -58,7 +71,19 @@ exports.updateNextMeasureOnCreate = functions.database.ref('/tank_measures/measu
 // next_measure date
 exports.updateNextMeasureOnDelete = functions.database.ref('/tank_measures/measures/{pushId}')
   .onDelete((snapshot, context) => {
+    incrementMeasureCounter(-1);
     return updateNextMeasure();
   });
 
-exports.users = functions.https.onRequest(app)
+exports.countMeasures = functions.database.ref('/tank_measures/measure_count').onDelete((snap) => {
+  const counterRef = snap.ref;
+  const collectionRef = admin.database().ref('/tank_measures/measures');
+
+  return collectionRef.once('value').then((snapshot) => {
+    return counterRef.set(snapshot.numChildren());
+  });
+  
+});
+
+exports.users=functions.https.onRequest(app)
+

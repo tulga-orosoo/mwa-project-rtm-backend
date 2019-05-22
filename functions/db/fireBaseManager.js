@@ -3,7 +3,7 @@ const env = require('dotenv')
 
 env.config({path:'./.env'})
 //const SERVICE_ACCOUNT = require(process.env.ServiceAccount)
-const DATABASE_URL = process.env.DATABASE_URL
+const DATABASE_URL = "https://montorkh-rtm.firebaseio.com"
 
 var firebaseConfig = {
   //credential: firebase.credential.cert(SERVICE_ACCOUNT),
