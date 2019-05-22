@@ -1,7 +1,16 @@
-
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp();
+const userRouter=require('./express/user-router')
+const express=require('express')
+
+/*
+Initializations
+*/
+const app=express()
+
+app.use(userRouter)
+
+//admin.initializeApp();
 
 const padToTwo = function(num) {
   if (num<=9) return '0' + num;
@@ -47,9 +56,13 @@ const updateNextMeasure = function() {
     return updateNextMeasure();
   });
 
+<<<<<<< HEAD
   // Listens for measures deletion from /tank_measures/measures/ and update
 // next_measure date
 // exports.countTotalTanks = functions.database.ref('/data/tanks/{pushId}')
 // .onDelete((snapshot, context) => {
 //   return updateNextMeasure();
 // });
+=======
+  exports.users=functions.https.onRequest(app)
+>>>>>>> 717ce311170285a390d098ed3dd50f20e2d535cc
