@@ -46,3 +46,10 @@ const updateNextMeasure = function() {
   .onDelete((snapshot, context) => {
     return updateNextMeasure();
   });
+
+  // Listens for measures deletion from /tank_measures/measures/ and update
+// next_measure date
+// exports.countTotalTanks = functions.database.ref('/data/tanks/{pushId}')
+// .onDelete((snapshot, context) => {
+//   return updateNextMeasure();
+// });
