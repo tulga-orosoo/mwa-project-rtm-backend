@@ -1,5 +1,5 @@
 const rTDB = require('../fireBaseManager')
-
+const { Observable } = require('rxjs')
 const { db, auth } = rTDB
 const userCollection = db.ref('/data/users')
 
@@ -31,7 +31,7 @@ const createUser = (user, disabled = false) => {
 
       userCollection.child(`/${userRecord.uid}`).set(userDBObject)
       return userRecord
-    }) 
+    })
 }
 
 //Update User
@@ -96,4 +96,15 @@ const getUser = (id) => {
   })
 }
 
-module.exports = { createUser, getUsers, updateUser, deleteUser, getUser }
+//Get users in realtime
+const getUsersAsync = () => {
+  observer = new Observable < any >
+    userCollection.on('value', (data) => {
+      observer = new Observable((observer) => {
+        observer.next(data)
+      })
+    })
+  return observer
+}
+
+module.exports = { createUser, getUsers, updateUser, deleteUser, getUser,getUsersAsync }

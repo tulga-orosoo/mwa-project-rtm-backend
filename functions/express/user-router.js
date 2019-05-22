@@ -1,22 +1,25 @@
 const express = require('express')
-const userFunctions = require('../db/operations/userOperations')
+const userOperations = require('../db/operations/userOperations')
 const User = require('../db/models/user')
 
 const jsonParser = express.json()
 const router = express.Router()
 
+router.all('/',(req,res,next)=>{
+
+    next()
+})
+
 router.get('/', (req, res, next) => {
-    userFunctions.getUsers().then(users => {
+    userOperations.getUsers().then(users => {
         res.json(users)
         return next()
     }).catch()
 })
 
 router.get('/user', (req, res, next) => {
-
     const { id } = req.query
-
-    userFunctions.getUser(id).then(user => {
+    userOperations.getUser(id).then(user => {
         res.json(user)
         return next()
     }).catch()
@@ -34,7 +37,7 @@ router.post('/user', jsonParser, (req, res, next) => {
     user.setPhotoURL(photoURL)
     user.setPassword(password)
 
-    userFunctions.createUser(user).then(() => {
+    userOperations.createUser(user).then(() => {
         res.json({ status: 'Success', message: 'User has been created' })
         return next()
 
@@ -57,7 +60,7 @@ router.put('/user', jsonParser, (req, res, next) => {
 
     const { id } = req.query
 
-    userFunctions.updateUser(id, user).then(() => {
+    userOperations.updateUser(id, user).then(() => {
         res.json({ status: 'Success', message: 'User has been updated' })
         return next()
 
@@ -70,7 +73,7 @@ router.delete('/user', (req, res, next) => {
 
     const { id } = req.query
 
-    userFunctions.deleteUser(id).then(() => {
+    userOperations.deleteUser(id).then(() => {
         res.json({ status: 'Sucess', message: 'User has been deleted' })
         return next()
     }).catch((err) => {

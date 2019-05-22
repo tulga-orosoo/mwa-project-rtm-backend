@@ -45,50 +45,46 @@ const User = function () {
         getTanks,
         getPassword
     }
-
-    // //Builder class for creating User
-    // Builder = function () {
-
-    //     user = new User();
-
-    //     function setFirstName(firstName) {
-    //         user.firstName = firstName;
-    //         return this;
-    //     }
-
-    //     function setLastName(lastName) {
-    //         this.user.lastName = lastName;
-    //         return this;
-    //     }
-    //     function setEmail(email = null) {
-    //         this.user.email = email;
-    //         return this;
-    //     }
-    //     // setPassword(password){
-    //     //     this.user.password=password
-    //     //     return this
-    //     // }
-    //     function setPhoneNumber(phoneNumber = null) {
-    //         this.user.phoneNumber = phoneNumber;
-    //         return this;
-    //     }
-    //     function setProfilePicturePath(path = null) {
-    //         this.user.profilePicturePath = path;
-    //         return this
-    //     }
-    //     function addTanks(...tanks) {
-    //         this.user.tanks.push.apply(tanks)
-    //         return this;
-    //     }
-    //     function build() {
-    //         return user;
-    //     }
-
-    //     return {setFirstName,build}
-    // }
-
-    // return { Builder, getFirstName }
-
 }
+
+// // //Builder class for creating User
+// class Builder {
+
+//     user = new User();
+
+//      setFirstName(firstName) {
+//         user.firstName = firstName;
+//         return this;
+//     }
+
+//      setLastName(lastName) {
+//         this.user.lastName = lastName;
+//         return this;
+//     }
+//      setEmail(email = null) {
+//         this.user.email = email;
+//         return this;
+//     }
+//     // setPassword(password){
+//     //     this.user.password=password
+//     //     return this
+//     // }
+//      setPhoneNumber(phoneNumber = null) {
+//         this.user.phoneNumber = phoneNumber;
+//         return this;
+//     }
+//      setProfilePicturePath(path = null) {
+//         this.user.profilePicturePath = path;
+//         return this
+//     }
+//      addTanks(...tanks) {
+//         this.user.tanks.push.apply(tanks)
+//         return this;
+//     }
+//      build() {
+//         return user;
+//     }
+
+// }
 
 module.exports = User
